@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { FirebaseCodeErrorService } from 'src/app/services/firebase-code-error.service';
 
 @Component({
   selector: 'app-registrar-usuario',
@@ -15,7 +16,7 @@ export class RegistrarUsuarioComponent implements OnInit {
  loading: boolean = false;
 
   constructor(
-    private fb: FormBuilder, private router: Router,
+    private fb: FormBuilder, private router: Router, private firebaseError: FirebaseCodeErrorService,
     private afAuth: AngularFireAuth, private toastr: ToastrService) {
     this.registrarUsuario = this.fb.group({
       email: ['', Validators.required],
@@ -45,20 +46,9 @@ export class RegistrarUsuarioComponent implements OnInit {
       this.router.navigate(['/login']);
     }).catch((error) => {
       this.loading = false;
-      this.toastr.error(this.firebaseError(error.code), 'Upsss!!', {timeOut: 3000,})
+      this.toastr.error(this.firebaseError.codeError(error.code), 'Upsss!!', {timeOut: 1000,})
     })
   }
-  firebaseError(code: string) {
-    switch (code) {
-      case 'auth/email-already-in-use':
-        return 'El usuario ya existe'
-      case 'auth/invalid-email':
-        return 'El email no es válido'
-      case 'auth/weak-password':
-        return 'La contraseña debe contener al menos 6 caracteres'
-      default:
-        return 'Error desconocido'
-      }
-  }
+
 
 }
