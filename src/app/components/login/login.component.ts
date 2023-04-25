@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder, private router: Router, private firebaseError: FirebaseCodeErrorService,
     private afAuth: AngularFireAuth, private toastr: ToastrService) {
       this.loginUsuario = this.fb.group({
-        email: ['', Validators.required],
-        password: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
       })
     }
 

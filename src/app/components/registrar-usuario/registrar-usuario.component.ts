@@ -19,8 +19,8 @@ export class RegistrarUsuarioComponent implements OnInit {
     private fb: FormBuilder, private router: Router, private firebaseError: FirebaseCodeErrorService,
     private afAuth: AngularFireAuth, private toastr: ToastrService) {
     this.registrarUsuario = this.fb.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       repetirPassword: ['', Validators.required],
     })
   }

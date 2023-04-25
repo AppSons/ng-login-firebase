@@ -20,7 +20,7 @@ export class RecuperarPasswordComponent implements OnInit {
     private fb: FormBuilder, private router: Router, private firebaseError: FirebaseCodeErrorService,
     private afAuth: AngularFireAuth, private toastr: ToastrService) {
       this.recuperarUsuario = this.fb.group({
-        email: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
       })
     }
 
