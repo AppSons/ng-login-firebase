@@ -26,6 +26,9 @@
       <div class="form-floating mb-3">
         <input type="password" class="form-control" formControlName="repetirPassword" placeholder="Repetir Password">
         <label>Repetir Password</label>
+        <span *ngIf="registrarUsuario.get('repetirPassword')?.hasError('required') && registrarUsuario.get('repetirPassword')?.touched" class="text-danger errorLabel">
+          <strong>Confirmar</strong> contraseña es requerido.
+        </span>
       </div>
       <div class="d-grid gap-2 mb-3">
         <button type="submit" class="btn btn-primary btn-lg" [disabled]="registrarUsuario.invalid" >Aceptar</button>
